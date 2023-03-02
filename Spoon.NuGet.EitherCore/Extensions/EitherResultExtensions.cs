@@ -75,4 +75,19 @@ public static class EitherResultExtensions
 
         return Results.Ok(responseObject);
     }
+    
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="either"></param>
+    /// <typeparam name="TResponse"></typeparam>
+    /// <returns></returns>
+    public static IResult ToNoContent<TResponse>(this Either<TResponse> either)
+    {
+        if (either.EitherEnum != EitherEnum.Success)
+            return either.GetFaulted().ToResult();
+        
+        return Results.NoContent();
+    }
 }
